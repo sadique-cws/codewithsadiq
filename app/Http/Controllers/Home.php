@@ -16,15 +16,47 @@ class Home extends Controller
     public function singleCourse(Request $req,$slug){
         return view("public/courseView",["course"=>Course::find($slug),"category"=>Category::all()]);
     }
+
+    
     public function cart(Request $req){
         $user_id = Auth::id();    
 
         $order = Order::where([['user_id',$user_id],['ordered',false]])->first();
+        if(!$order){
+             return redirect()->route('homepage');
+        }
         $data = [
             "category"=>Category::all(),
             "orderitem"=>Order::find($order->id)->orderitem
         ];
         return view('public/cart',$data);
+    }
+    public function myCourse(Request $req){
+        $user_id = Auth::id();    
+
+        $order = Order::where([['user_id',$user_id],['ordered',true]])->first();
+        $data = [
+            "category"=>Category::all(),
+            "orderitem"=>Order::find($order->id)->orderitem
+        ];
+        return view('public/myCourse',$data);
+    }
+    public static function getDueAmount($order){
+        $due = 0;
+        foreach($order->paytm as $p):
+            $due += $p->due_amount;
+        endforeach;
+        return $due;
+    }
+    public function myPayment(Request $req){
+        $user_id = Auth::id();    
+
+        $order = Order::where([['user_id',$user_id],['ordered',true]])->get();
+        $data = [
+            "category"=>Category::all(),
+            "order"=>$order
+        ];
+        return view('public/myPayments',$data);
     }
     private function OrderItemCreation($user_id,$course,$order){
         $orderItem = OrderItem::where([['user_id',$user_id],['ordered',false],["course_id",$course->id]])->first();

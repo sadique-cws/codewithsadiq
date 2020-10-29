@@ -1,7 +1,7 @@
 @extends('public.base')
 
 @section('content')
-    <div class="container-fluid mt-3">
+    <div class="container mt-3">
         <div class="row">
             @foreach($course as $c)
             <div class="col mb-3">

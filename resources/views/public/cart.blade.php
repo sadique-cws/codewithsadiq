@@ -58,8 +58,16 @@
             <div class="h1  font-weight-bolder">₹{{$discountTotal}}/-</div>
             <div class="h6 text-muted font-weight-lighter"><del>₹{{$total}}/-</del></div>
             <div class="h5 text-success">{{ round(($discountTotal / $total)*100)}}% off</div>
-                <a href="" class="btn btn-danger bg-gradient btn-block btn-lg">Checkout </a>
-
+            <form action="{{ route('make.payment')}}" method="POST">
+                @csrf
+                <button type="submit" name="full" class="btn  btn-success bg-gradient btn-block btn-lg">Full Payment</button>
+                <button type="submit" name="emi" class="btn  btn-danger bg-gradient btn-block btn-lg mt-4 ">
+                   Pay ₹{{ ($discountTotal*0.40)}}/-<br> 
+                        <small class="small font-weight-lighter">1st installment (40% of ₹{{$discountTotal}})</small>
+        
+                </button>
+            </form>
+               
 
                 <form action="" class="mt-4">
                     <div class="input-group">

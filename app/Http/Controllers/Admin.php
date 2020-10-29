@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 
 class Admin extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function addCategory(Request $req){
         $req->validate([
             'cat_title'=>'required'

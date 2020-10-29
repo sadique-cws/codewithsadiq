@@ -15,5 +15,9 @@ class Order extends Model
     {
         return $this->hasMany('App\models\OrderItem');
     }
+    public function paytm()
+    {
+        return $this->hasMany('App\Models\Paytm');
+    }
 }
 
