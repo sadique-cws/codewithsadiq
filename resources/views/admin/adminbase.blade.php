@@ -62,8 +62,8 @@
                   Coupon
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="{{ route('adminCourseAdd')}}">New Category</a></li>
-                <li><a class="dropdown-item" href="{{ route('adminCourse')}}">Manage Category</a></li>
+                <li><a class="dropdown-item" href="{{ route('coupon')}}">New Coupon</a></li>
+                <li><a class="dropdown-item" href="{{ route('adminCourse')}}">Manage Coupon</a></li>
                   <li><a class="dropdown-item" href="#">View Reports</a></li>
                 </ul>
               </li>

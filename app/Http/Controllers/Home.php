@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Coupon;
 use App\Models\OrderItem;
 
 class Home extends Controller
@@ -27,7 +28,8 @@ class Home extends Controller
         }
         $data = [
             "category"=>Category::all(),
-            "orderitem"=>Order::find($order->id)->orderitem
+            "orderitem"=>Order::find($order->id)->orderitem,
+            'order'=> $order
         ];
         return view('public/cart',$data);
     }
@@ -43,9 +45,9 @@ class Home extends Controller
     }
     public static function getDueAmount($order){
         $due = 0;
-        foreach($order->paytm as $p):
-            $due += $p->due_amount;
-        endforeach;
+        if(isset($order->payment_due[0])):
+            $due = $order->payment_due[0]->due_amount;
+        endif;
         return $due;
     }
     public function myPayment(Request $req){
@@ -108,6 +110,39 @@ class Home extends Controller
             //msg this course not avaiable
             return redirect()->back();
         }
+    }
+    private function checkCoupon($code){
+        $coupon = Coupon::where([['status',1],['code',$code]])->first();
+        if($coupon){        
+            return $coupon;
+        }
+        return false;
+        }
+    public function addCoupon(Request $req){
+        $req->validate([
+            'code' => 'required'
+        ]);
+        if($coupon = $this->checkCoupon($req->code)){
+            $user_id = Auth::id();    
+            $order = Order::where([['user_id',$user_id],['ordered',false]])->first();
+            
+            $order->coupon = $coupon->id;
+            $order->save();
+            return redirect('cart')->with(['message' => 'Coupon Applied Successfully','alert'=>'alert-success']);
+        }
+        else{
+            echo "fail";
+            return redirect('cart')->with(['message' => 'Coupon Invalid or Expired','alert'=>'alert-danger']);
+        }
+        
+    }
+    public function removeCoupon(){
+        $user_id = Auth::id();    
+        $order = Order::where([['user_id',$user_id],['ordered',false]])->first();
+        
+        $order->coupon = NULL;
+        $order->save();
+        return redirect('cart')->with(['message' => 'Coupon Removed Successfully','alert'=>'alert-danger']);
     }
 }
 

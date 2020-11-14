@@ -24,12 +24,17 @@
                 <?php 
                     $total = 0;
                     $discountTotal = 0;
+                    if($order->coupon!=null){
+                        $discountTotal -= $order->coupon_data->amount;
+                    }
                 ?>
                     
                 @foreach ($orderitem as $oi)
                 <?php 
                     $total += $oi->course->price;
                     $discountTotal += $oi->course->discount_price;
+
+                   
                 ?>
                 <div class="card mb-2 border-0">
                     <div class="row">
@@ -46,8 +51,8 @@
                         <a href="{{ route('removeFromCart',['slug'=>$oi->course->slug])}}" class=" text-muted text-decoration-none small">Remove</a>
                         </div>
                         <div class="col">
-                            <span class="d-block m-0 text-danger h5">₹{{$oi->course->discount_price}}</span>
-                            <span class="d-block m-0 text-muted small"><del>₹{{$oi->course->price}}</del></span>
+                            <span class="d-block m-0 text-danger h5">₹{{$oi->course->discount_price}}/-</span>
+                            <span class="d-block m-0 text-muted small"><del>₹{{$oi->course->price}}/-</del></span>
                         </div>
                     </div>
                 </div>
@@ -69,14 +74,23 @@
             </form>
                
 
-                <form action="" class="mt-4">
+        <form action="{{ route('Coupon')}}" method="POST" class="mt-4">
+            @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter Coupon">
+                        <input type="text" class="form-control " placeholder="Enter Coupon" name="code">
                         <span class="input-group-append">
                             <input type="submit" class="btn btn-danger bg-gradient rounded-0" value="Apply">
-                        </span>
-                    </div>
+                        </span> 
+                    
+                        @if($errors->has('code'))
+                            <div class="text-danger small font-weight-bold">{{ $errors->first('code') }}</div>
+                        @endif </div>
                 </form>
+                @if($order->coupon !== null)
+            <p class="text-dark  mt-2 mb-0"> <a href='{{route('removeCoupon')}}' class=" font-weight-bolder text-decoration-none lead text-danger">&times;</a> <b class="small">{{$order->coupon_data->code}}</b> Coupon Applied  </p>
+            <p class=" mt-0 pt-0 small text-success font-weight-bolder">(Flate ₹{{$order->coupon_data->amount}}/- Coupon Saved)</p>
+            
+                @endif
             </div>
             @else 
         <a href="{{ route('homepage')}}" class="btn btn-lg bg-gradient btn-primary">Explorer Courses</a>

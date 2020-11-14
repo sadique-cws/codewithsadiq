@@ -27,24 +27,40 @@ class PaytmController extends Controller{
         return $total;
     }
 
+    public static function getDueAmount($order){
+        $due = 0;
+        if(isset($order->payment_due[0])):
+            $due = $order->payment_due[0]->due_amount;
+        endif;
+        return $due;
+    }
     public function pay(Request $request)
     {
         $user = Auth::user();    
         $amount = 0;
         $order = Order::where([['user_id',$user->id],['ordered',false]])->first();
         if(isset($_POST['full'])){
-            $amount = $this->getTotalAmount($user->id,$order->id); //Amount to be paid
+            $amount = $this->getTotalAmount($user->id,$order->id); 
+            $due = $this->getTotalAmount($user->id,$order->id)-$amount;
         }
         elseif(isset($_POST['emi'])){
-            $amount = $this->getTotalAmount($user->id,$order->id)*0.40; //Amount to be paid         
+            $amount = $this->getTotalAmount($user->id,$order->id)*0.40; 
+            $due = $this->getTotalAmount($user->id,$order->id)-$amount;       
         }
-        
+        else{
+            $amount = $request->amount;
+            $order = Order::where([['id',$request->order],['ordered',true]])->first();
+            $due = $this->getDueAmount($order)-$amount;
+
+        }
+    
+
         $userData = [
             'name' => $user->name, // Name of user
             'mobile' => 9546805580, //Mobile number of user
             'email' => $user->email, //Email of user
             'amount' => $amount,
-            'due_amount'=>$this->getTotalAmount($user->id,$order->id)-$amount,
+            'due_amount'=>$due,
             'user_id'=>$user->id,
             'order_id' => $order->id,
             'order' => "9546805580"."_".rand(1,1000) //Order id
@@ -52,6 +68,8 @@ class PaytmController extends Controller{
 
         
         $paytmuser = Paytm::create($userData); // creates a new database record
+
+
         $payment = PaytmWallet::with('receive');
 
         $payment->prepare([
@@ -76,14 +94,19 @@ class PaytmController extends Controller{
         // update the db data as per result from api call
         if ($transaction->isSuccessful() ) {
             $order = Order::where([['user_id',$user->id],['ordered',false]])->first();
-            $orderitem = Order::find($order->id)->orderitem;
-            foreach($orderitem as $o):
-                $o->where('order_id',$order->id)->update(['ordered'=>true]);
-            endforeach;
-            Order::where([['user_id',$user->id],['ordered',false]])->update(['ordered'=>true]);
+            if($order):
+                $orderitem = Order::find($order->id)->orderitem;
+                foreach($orderitem as $o):
+                    $o->where('order_id',$order->id)->update(['ordered'=>true]);
+                endforeach;
+                Order::where([['user_id',$user->id],['ordered',false]])->update(['ordered'=>true]);
 
-            Paytm::where('order', $order_id)->update(['status' => 1, 'transaction_id' => $transaction->getTransactionId()]);
-            return redirect(route('myPayment'))->with('message', "Your payment is successfull.");
+            else:
+                $order = Order::where([['user_id',$user->id],['ordered',true]])->first();
+            endif;
+                Paytm::where('order', $order_id)->update(['status' => 1, 'transaction_id' => $transaction->getTransactionId()]);
+
+                return redirect(route('myPayment'))->with('message', "Your payment is successfull.");
 
         } else if ($transaction->isFailed()) {
 

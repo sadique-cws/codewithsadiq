@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Coupon;
 use Illuminate\Support\Str;
 
 class Admin extends Controller
@@ -19,6 +20,19 @@ class Admin extends Controller
         //inserting data
         $c = new Category();
         $c->cat_title = $req->cat_title;
+        $c->save();
+
+        return redirect()->back();
+    }
+    public function addCoupon(Request $req){
+        $req->validate([
+            'code'=>'required',
+            'amount'=>'required',
+        ]);
+        //inserting data
+        $c = new Coupon();
+        $c->code = $req->code;
+        $c->amount= $req->amount;
         $c->save();
 
         return redirect()->back();

@@ -19,5 +19,14 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\Paytm');
     }
+    public function payment_due()
+    {
+        return $this->hasMany('App\Models\Paytm')->where('paytm.status', '=', 1)->latest();
+    }
+    
+    public function coupon_data()
+    {
+        return $this->hasOne('App\Models\Coupon','id','coupon');
+    }
 }
 
