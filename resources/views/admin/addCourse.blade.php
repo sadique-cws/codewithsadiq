@@ -8,39 +8,43 @@
                     <div class="card-body">
                         <form action="{{ route('addCourse') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                                <div class="form-group">
-                                    <label for="title">title</label>
-                                    <input type="text" name="title" class="form-control">
+                            
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="title" id="title" placeholder="Enter Title" class="form-control @error('title') is-invalid @enderror">
+                                    <label for="title">Title</label>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="price" id="price" class="form-control" placeholder="price">
                                     <label for="price">price</label>
-                                    <input type="text" name="price" class="form-control">
+
                                 </div>
-                                <div class="form-group">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="discount_price" id="discount_price" class="form-control" placeholder="discount_price">
                                     <label for="discount_price">discount_price</label>
-                                    <input type="text" name="discount_price" class="form-control">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="instructor" class="form-control" id="instructor" placeholder="instructor">
                                     <label for="instructor">instructor</label>
-                                    <input type="text" name="instructor" class="form-control">
+
                                 </div>
-                                <div class="form-group">
-                                    <label for="category">category</label>
+                                <div class="form-floating mb-3">
                                     <select name="category" class="form-control">
                                         @foreach ($category as $cat)
                                     <option value="{{ $cat->id}}">{{$cat->cat_title}}</option>                                    
                                         @endforeach
                                     </select>
+                                    <label for="category">category</label>
+                                    
                                 </div>
-                                <div class="form-group">
-                                    <label for="image">image</label>
+                                <div class=" mb-3">
                                     <input type="file" name="image" class="form-control">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-floating mb-3">
+                                    <textarea name="description" class="form-control" id="description" placeholder="description"></textarea>
+                                    
                                     <label for="description">description</label>
-                                    <textarea name="description" class="form-control"></textarea>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-floating mb-3">
                                     <input type="submit" class="btn btn-danger btn-block">
                                 </div>
                             </form>

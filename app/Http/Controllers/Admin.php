@@ -39,7 +39,13 @@ class Admin extends Controller
     }
     public function addCourse(Request $req){
         $req->validate([
-            'title'=>'required'
+            'title'=>'required',
+            'price'=>'required',
+            'discount_price'=>'required',
+            'instructor'=>'required',
+            'category'=>'required',
+            'image'=>'required',
+            'description'=>'required',
         ]);
         //inserting data
 

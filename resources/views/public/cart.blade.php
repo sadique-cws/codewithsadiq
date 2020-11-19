@@ -7,7 +7,7 @@
     Home/ <h2>Your Cart</h2>
    </div>
 </div>
-    <div class="container mt-3">
+    <div class="container  mt-3">
         
         <div class="row">
             <div class="col-lg-9">
@@ -18,7 +18,7 @@
                 </div>
           @endif    
                 <div class="row mb-3">
-                    <h6 class="lead font-weight-bold">{{ count($orderitem)}} Courses in your carts</h6>
+                    <h5 class=" font-weight-normal">{{ count($orderitem)}} Courses in your carts</h5>
                 </div>
                 @if (count($orderitem)>0)
                 <?php 
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="card-body p-0">
-                                <div class='h6 mb-0'>{{$oi->course->title}}</div>
+                                <div class='h5 mb-0'>{{$oi->course->title}}</div>
                                 <div class="small mt-0 text-muted">by: {{$oi->course->instructor}}</div>
                             </div>
                         </div>
@@ -60,17 +60,19 @@
             </div>
             <div class="col-lg-3">
                 <h6 class="mb-0">Total: </h6>
-            <div class="h1  font-weight-bolder">₹{{$discountTotal}}/-</div>
+            <div class="h1  font-weight-bold">₹{{$discountTotal}}/-</div>
             <div class="h6 text-muted font-weight-lighter"><del>₹{{$total}}/-</del></div>
             <div class="h5 text-success">{{ round(($discountTotal / $total)*100)}}% off</div>
             <form action="{{ route('make.payment')}}" method="POST">
                 @csrf
-                <button type="submit" name="full" class="btn  btn-success bg-gradient btn-block btn-lg">Full Payment</button>
-                <button type="submit" name="emi" class="btn  btn-danger bg-gradient btn-block btn-lg mt-4 ">
+                <div class="d-grid gap-4">
+                    <button type="submit" name="full" class="btn  btn-success bg-gradient btn-lg">Full Payment</button>
+                <button type="submit" name="emi" class="btn  btn-danger bg-gradient btn-lg">
                    Pay ₹{{ ($discountTotal*0.40)}}/-<br> 
-                        <small class="small font-weight-lighter">1st installment (40% of ₹{{$discountTotal}})</small>
+                        <small class="small font-weight-lighter"> (40% of ₹{{$discountTotal}})</small>
         
                 </button>
+                </div>
             </form>
                
 

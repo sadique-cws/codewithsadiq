@@ -52,7 +52,7 @@ class PaytmController extends Controller{
             $order = Order::where([['id',$request->order],['ordered',true]])->first();
             $due = $this->getDueAmount($order)-$amount;
 
-        }
+        } 
     
 
         $userData = [

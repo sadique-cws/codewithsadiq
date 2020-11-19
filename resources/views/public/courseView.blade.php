@@ -16,8 +16,8 @@
                 <p class="lead font-weight-normal">{{$course->description}}</p>
                 <p class="small text-muted">by: {{$course->instructor}}</p>
 
-            <a href="{{ route('addToCart',['slug'=>$course->slug])}}" class="btn btn-danger  btn-lg bg-gradient">add to Cart</a>
-                <a href="" class="btn btn-success bg-gradient btn-lg">Buy Now</a>
+            <a href="{{ route('addToCart',['slug'=>$course->slug])}}" class="btn btn-danger  btn-lg">add to Cart</a>
+                <a href="" class="btn btn-success btn-lg">Buy Now</a>
             </div>
         </div>
     </div>

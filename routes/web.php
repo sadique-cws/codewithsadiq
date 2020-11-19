@@ -37,7 +37,7 @@ Route::prefix('admin')->group(function () {
     //course work
     Route::get('/course', function () {return view('admin/course',["course"=>Course::all()]);})->name('adminCourse');
     Route::get('/course/add', function () {return view('admin/addCourse',["category"=>Category::all()]);})->name('adminCourseAdd');
-    Route::post('course/add-course',[Admin::class,"addCourse"])->name("addCourse");
+    Route::post('course/add',[Admin::class,"addCourse"])->name("addCourse");
 
     
     Route::get('/category', function () {return view('admin/category',["category"=>Category::all()]);})->name('adminCategory');

@@ -1,0 +1,19 @@
+.bg-theme{
+    background-image: linear-gradient( 135deg, #F05F57 10%, #360940 100%)!important ;
+}
+.bg-purple{
+    background-color: #4d1443!important;
+}
+*{
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.btn-danger,.bg-danger,.alert-danger{
+    background-color: #ff3838!important;
+    color:white;
+}
+.btn-success,.bg-success,.alert-success{
+    background-color: #27ae60!important;
+    color:white;
+}
