@@ -12,8 +12,8 @@ class Course extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    public function category()
+    public function categories()
     {
-        return $this->hasOne('App\Models\Category', 'category','id');
+        return $this->hasOne('App\Models\Category','id', 'category');
     }
 }

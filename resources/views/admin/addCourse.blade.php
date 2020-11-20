@@ -1,7 +1,7 @@
 @extends('admin/adminbase')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card">
@@ -40,7 +40,7 @@
                                     <input type="file" name="image" class="form-control">
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <textarea name="description" class="form-control" id="description" placeholder="description"></textarea>
+                                    <textarea name="description" rows="7" class="form-control" id="description" placeholder="description"></textarea>
                                     
                                     <label for="description">description</label>
                                 </div>

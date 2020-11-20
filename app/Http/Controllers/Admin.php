@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Coupon;
+use App\Models\Order;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Paytm;
 
 class Admin extends Controller
 {
@@ -65,6 +68,36 @@ class Admin extends Controller
         $c->image = $imageName;
         $c->save();
 
+        return redirect()->back();
+    }
+
+    public function students(Request $req){
+        $data = ['students'=> User::all()];
+        return view('admin.students',$data);
+    }
+    public function payments(Request $req){
+        $data = ['payments'=> Paytm::all()];
+        return view('admin.payments',$data);
+    }
+
+    public function couponAction(Request $req){
+        $coupon = Coupon::find($req->coupon_id);
+
+        if($coupon->status==0){
+            $coupon->status = 1;
+        }
+        else{
+            $order = Order::where('ordered',false)->get();
+               
+            foreach($order as $o){
+                
+                $o->coupon = NULL;
+                $o->save();
+            }
+            $coupon->status = 0;
+
+        }
+        $coupon->save();
         return redirect()->back();
     }
 }

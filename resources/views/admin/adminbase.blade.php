@@ -4,26 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <title>Code with sadiQ</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-        <a class="navbar-brand" href="#">Admin Panel | CWS</a>
+        <a class="navbar-brand" href="{{route('dashboard')}}">Admin Panel | CWS</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">My Courses</a></li>
-              <li class="nav-item"><a class="nav-link active text-danger" aria-current="page" href="#">
-                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-              </svg></a>
-            </li>
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">My Profile</a></li>
+              
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Logout</a></li>
 
             </ul>
           
@@ -44,58 +39,31 @@
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="{{ route('adminCourseAdd')}}">New Course</a></li>
                 <li><a class="dropdown-item" href="{{ route('adminCourse')}}">Manage Course</a></li>
-                  <li><a class="dropdown-item" href="#">View Reports</a></li>
                 </ul>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
-                  Category
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="{{ route('adminCategory')}}">New Category</a></li>
-                <li><a class="dropdown-item" href="{{ route('adminCategory')}}">Manage Category</a></li>
-                  <li><a class="dropdown-item" href="#">View Reports</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('adminCategory')}}">Category</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
-                  Coupon
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="{{ route('coupon')}}">New Coupon</a></li>
-                <li><a class="dropdown-item" href="{{ route('adminCourse')}}">Manage Coupon</a></li>
-                  <li><a class="dropdown-item" href="#">View Reports</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('coupon')}}" id="navbarDarkDropdownMenuLink">Coupon</a>
+               
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
-                  Admission
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="{{ route('adminCourseAdd')}}">New Category</a></li>
-                <li><a class="dropdown-item" href="{{ route('adminCourse')}}">Manage Category</a></li>
-                  <li><a class="dropdown-item" href="#">View Reports</a></li>
-                </ul>
-              </li>
+              
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
                   Students
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                <li><a class="dropdown-item" href="{{route('students')}}">Active Students</a></li>
+                 </ul>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
                   Payments
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                <li><a class="dropdown-item" href="{{route('payments')}}">Recent Payments</a></li>
+                  </ul>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">

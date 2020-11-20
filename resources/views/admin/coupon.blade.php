@@ -38,7 +38,15 @@
                             <td>{{$c->code}}</td>
                             <td>{{$c->amount}}</td>
                             <td>
-                                <a href="" class="btn btn-success">Activate</a>
+                            <form action="{{route('couponAction')}}" method="POST">@csrf
+                            <input type="hidden" name="coupon_id" value='{{$c->id}}'>
+                                    @php  if($c->status==1): @endphp
+                                    <button type="submit" class="badge border-0 bg-success">Activate</button>
+                                    @php  else: @endphp
+                                    <button type="submit" class="badge border-0 bg-danger">Deactive</button>
+                                    @php  endif; @endphp
+                                    
+                                </form>
                             </td>
                         </tr>
                     @endforeach

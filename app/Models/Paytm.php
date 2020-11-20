@@ -15,6 +15,10 @@ class Paytm extends Model
          //status = 1, success, 
          //status = 2, processing 
 
+    public function user()
+    {
+        return $this->hasOne('App\Models\User','id', 'user_id');
+    }
    
 
 }

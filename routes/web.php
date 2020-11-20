@@ -41,11 +41,14 @@ Route::prefix('admin')->group(function () {
 
     
     Route::get('/category', function () {return view('admin/category',["category"=>Category::all()]);})->name('adminCategory');
+    Route::get('/students',[Admin::class,'students'])->name('students');
+    Route::get('/payments',[Admin::class,'payments'])->name('payments');
 
     Route::get('/coupon',function(){
         return view('admin/coupon',["category"=>Category::all(),"coupon"=>Coupon::all()]);
     })->name('coupon');
     Route::post('/addCoupon',[Admin::class,'addCoupon'])->name('addCoupon');
     Route::post('/add-category',[Admin::class,"addCategory"])->name("addCategory");
+    Route::post('/coupon-action',[Admin::class,"couponAction"])->name("couponAction");
 
 });
