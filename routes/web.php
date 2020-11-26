@@ -12,7 +12,13 @@ Route::get('/', function () {
     return view('public/homepage',["category"=>Category::all(),"course"=>Course::all()]);
 })->name('homepage');
 
-Route::get('/c/{slug}',[Home::class,"singleCourse"])->name("singleCourse");
+Route::get('/c/{slug}',function($slug){
+    return view("public/courseView",["course"=>Course::find($slug),"category"=>Category::all()]);
+})->name("singleCourse")->middleware('atama');
+
+Route::get('/cat/{slug}/{id}',function($slug,$id){
+    return view('public.homepage',["course"=>Course::where("category",$id)->get(),"category"=>Category::all()]);
+})->name('cat');
 Route::get('/add-to-cart/{slug}',[Home::class,"addToCart"])->name("addToCart");
 Route::get('/remove-from-cart/{slug}',[Home::class,"removeFromCart"])->name("removeFromCart");
 Route::get('/cart',[Home::class,"cart"])->name("cart");

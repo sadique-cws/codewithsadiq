@@ -20,7 +20,7 @@ class Admin
     {
         
         if(Auth::check() && $request->user()->isAdmin == 1){
-            return $next($request);
+            return redirect()->back();
         }
         else{
             return redirect()->route('login')->with('error',"Only admin can access!");

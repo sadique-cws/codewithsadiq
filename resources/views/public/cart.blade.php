@@ -67,11 +67,17 @@
                 @csrf
                 <div class="d-grid gap-4">
                     <button type="submit" name="full" class="btn  btn-success bg-gradient btn-lg">Full Payment</button>
-                <button type="submit" name="emi" class="btn  btn-danger bg-gradient btn-lg">
+                @php
+                    if($orderitem[0]->course->installment==1):
+                @endphp
+                 <button type="submit" name="emi" class="btn  btn-danger bg-gradient btn-lg">
                    Pay ₹{{ ($discountTotal*0.40)}}/-<br> 
                         <small class="small font-weight-lighter"> (40% of ₹{{$discountTotal}})</small>
         
                 </button>
+                @php
+                    endif;
+                @endphp
                 </div>
             </form>
                

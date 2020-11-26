@@ -18,7 +18,6 @@ class Home extends Controller
         return view("public/courseView",["course"=>Course::find($slug),"category"=>Category::all()]);
     }
 
-    
     public function cart(Request $req){
         $user_id = Auth::id();    
 
@@ -34,9 +33,11 @@ class Home extends Controller
         return view('public/cart',$data);
     }
     public function myCourse(Request $req){
-        $user_id = Auth::id();    
+        $user_id = Auth::id();   
+         
 
         $order = Order::where([['user_id',$user_id],['ordered',true]])->first();
+        
         $data = [
             "category"=>Category::all(),
             "orderitem"=>Order::find($order->id)->orderitem
@@ -60,6 +61,7 @@ class Home extends Controller
         ];
         return view('public/myPayments',$data);
     }
+
     private function OrderItemCreation($user_id,$course,$order){
         $orderItem = OrderItem::where([['user_id',$user_id],['ordered',false],["course_id",$course->id]])->first();
         if(!$orderItem){
@@ -70,6 +72,7 @@ class Home extends Controller
             $oi->save();
         }
     }
+    
     public function addToCart(Request $req,$slug){
         
          $user_id = Auth::id();    
@@ -90,6 +93,7 @@ class Home extends Controller
             return redirect('cart')->with(['message' => 'Selected Course is Not Avaiable', 'alert' => 'alert-danger']);
         }
     }
+    
     public function removeFromCart(Request $req,$slug){
         
          $user_id = Auth::id();    
@@ -111,6 +115,7 @@ class Home extends Controller
             return redirect()->back();
         }
     }
+    
     private function checkCoupon($code){
         $coupon = Coupon::where([['status',1],['code',$code]])->first();
         if($coupon){        
@@ -118,7 +123,8 @@ class Home extends Controller
         }
         return false;
         }
-    public function addCoupon(Request $req){
+    
+        public function addCoupon(Request $req){
         $req->validate([
             'code' => 'required'
         ]);
@@ -136,6 +142,7 @@ class Home extends Controller
         }
         
     }
+    
     public function removeCoupon(){
         $user_id = Auth::id();    
         $order = Order::where([['user_id',$user_id],['ordered',false]])->first();

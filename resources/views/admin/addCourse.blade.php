@@ -13,18 +13,34 @@
                                     <input type="text" name="title" id="title" placeholder="Enter Title" class="form-control @error('title') is-invalid @enderror">
                                     <label for="title">Title</label>
                                 </div>
+                                
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="price" id="price" class="form-control" placeholder="price">
-                                    <label for="price">price</label>
-
+                                    <input type="text" name="duration" id="duration" class="form-control" placeholder="duration">
+                                    <label for="duration">duration</label>
+                                </div>
+                               
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="price" id="price" class="form-control" placeholder="price">
+                                            <label for="price">Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="discount_price" id="discount_price" class="form-control" placeholder="discount_price">
+                                            <label for="discount_price">Discount Price</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="discount_price" id="discount_price" class="form-control" placeholder="discount_price">
-                                    <label for="discount_price">discount_price</label>
+                                    <input type="text" name="eligibility" id="eligibility" class="form-control" placeholder="eligibility">
+                                    <label for="eligibility">Eligibility</label>
                                 </div>
-                                <div class="form-floating mb-3">
+                                 <div class="form-floating mb-3">
                                     <input type="text" name="instructor" class="form-control" id="instructor" placeholder="instructor">
-                                    <label for="instructor">instructor</label>
+                                    <label for="instructor">Instructor</label>
 
                                 </div>
                                 <div class="form-floating mb-3">

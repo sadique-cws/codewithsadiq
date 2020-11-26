@@ -23,6 +23,7 @@ class Admin extends Controller
         //inserting data
         $c = new Category();
         $c->cat_title = $req->cat_title;
+        $c->cat_slug = Str::slug($req->cat_title,'-');
         $c->save();
 
         return redirect()->back();
@@ -49,6 +50,7 @@ class Admin extends Controller
             'category'=>'required',
             'image'=>'required',
             'description'=>'required',
+            'duration' => 'required',
         ]);
         //inserting data
 
@@ -65,7 +67,9 @@ class Admin extends Controller
         $c->description = $req->description;
         $c->instructor = $req->instructor;
         $c->category = $req->category;
+        $c->duration = $req->duration;
         $c->image = $imageName;
+        $c->eligibility = $req->eligibility;
         $c->save();
 
         return redirect()->back();
