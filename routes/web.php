@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::get('/c/{slug}',function($slug){
     return view("public/courseView",["course"=>Course::find($slug),"category"=>Category::all()]);
-})->name("singleCourse")->middleware('atama');
+})->name("singleCourse");
 
 Route::get('/cat/{slug}/{id}',function($slug,$id){
     return view('public.homepage',["course"=>Course::where("category",$id)->get(),"category"=>Category::all()]);
